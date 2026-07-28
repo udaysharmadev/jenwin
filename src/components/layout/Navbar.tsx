@@ -45,7 +45,7 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 flex-shrink-0" aria-label="Jenwin Home">
-            <JenwinLogo className="h-7 w-auto" />
+            <JenwinLogo width={120} height={34} />
           </Link>
 
           {/* Desktop links */}

@@ -6,14 +6,14 @@ import { Mail, Clock, MessageSquare } from "lucide-react";
 export const metadata: Metadata = {
   title: "Contact — Jenwin",
   description:
-    "Start a project with Jenwin. Tell us what you're building and we'll respond within one business day.",
+    "Start a project with Jenwin. Tell us what you're building and we'll respond within one business day (IST).",
 };
 
 const trustItems = [
   {
     icon: Clock,
-    title: "We respond fast.",
-    description: "Every inquiry gets a reply within one business day. Usually the same day.",
+    title: "We respond within 24 hrs.",
+    description: "Every inquiry is read by the team and gets a reply the same day or next morning (IST).",
   },
   {
     icon: MessageSquare,
@@ -53,7 +53,7 @@ export default function ContactPage() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <p className="text-base text-[#666666] max-w-lg leading-relaxed">
-              We review every message and respond within one business day. The brief doesn&apos;t have to be perfect — just honest.
+              We review every message and respond within one business day (IST). The brief doesn&apos;t have to be perfect — just honest.
             </p>
           </FadeIn>
         </div>
@@ -98,12 +98,12 @@ export default function ContactPage() {
                   Prefer email?
                 </p>
                 <a
-                  href="mailto:hello@jenwin.com"
+                  href="mailto:hello@jenw.in"
                   className="text-sm font-semibold text-white hover:text-[#D81B60] transition-colors duration-200"
                 >
-                  hello@jenwin.com
+                  hello@jenw.in
                 </a>
-                <p className="text-xs text-[#444444] mt-1">We check it daily.</p>
+                <p className="text-xs text-[#444444] mt-1">Mon–Sat · IST timezone.</p>
               </div>
             </FadeIn>
           </div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/ui/FadeIn";
-import { Send, CheckCircle2, Mail, Clock } from "lucide-react";
+import { Send, CheckCircle2 } from "lucide-react";
 
 const projectTypes = [
   "Website Development",
@@ -11,21 +11,20 @@ const projectTypes = [
   "MVP Build",
   "UI Engineering",
   "AI-Enabled Features",
+  "Consultation",
   "Other",
 ];
 
-const budgetRanges = [
-  "< $5,000",
-  "$5,000 – $15,000",
-  "$15,000 – $30,000",
-  "$30,000 – $60,000",
-  "$60,000+",
-  "Not sure yet",
+const projectScales = [
+  "Small — focused, single-purpose build",
+  "Medium — multi-feature product",
+  "Large — full platform or ecosystem",
+  "Not sure yet — let's discuss",
 ];
 
 const timelines = [
-  "ASAP",
-  "Within 1 month",
+  "Urgent — need to move fast",
+  "Within 4 weeks",
   "1–3 months",
   "3+ months",
   "Flexible",
@@ -36,7 +35,7 @@ interface FormData {
   email: string;
   company: string;
   projectType: string;
-  budget: string;
+  scale: string;
   timeline: string;
   brief: string;
 }
@@ -46,7 +45,7 @@ const initialForm: FormData = {
   email: "",
   company: "",
   projectType: "",
-  budget: "",
+  scale: "",
   timeline: "",
   brief: "",
 };
@@ -68,8 +67,8 @@ export default function ContactForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_KEY", // Replace with actual key
-          subject: `New Project Inquiry — ${form.projectType || "General"}`,
+          access_key: "YOUR_WEB3FORMS_KEY",
+          subject: `New Project Inquiry — ${form.projectType || "General"} — jenw.in`,
           from_name: form.name,
           ...form,
         }),
@@ -103,8 +102,9 @@ export default function ContactForm() {
         </div>
         <h3 className="text-xl font-bold text-white">Message received.</h3>
         <p className="text-sm text-[#666666] max-w-xs">
-          We review every inquiry and typically respond within one business day.
+          We review every inquiry and typically respond within one business day — usually sooner.
         </p>
+        <p className="text-xs text-[#444444]">IST timezone · Mon–Sat</p>
       </motion.div>
     );
   }
@@ -141,13 +141,13 @@ export default function ContactForm() {
 
       {/* Company */}
       <div>
-        <label htmlFor="company" className={labelBase}>Company / Project</label>
+        <label htmlFor="company" className={labelBase}>Company / Startup</label>
         <input
           id="company"
           type="text"
           value={form.company}
           onChange={set("company")}
-          placeholder="Company name or project codename"
+          placeholder="Your startup or company name"
           className={inputBase}
         />
       </div>
@@ -169,19 +169,19 @@ export default function ContactForm() {
         </select>
       </div>
 
-      {/* Budget + Timeline */}
+      {/* Scale + Timeline */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="budget" className={labelBase}>Budget Range</label>
+          <label htmlFor="scale" className={labelBase}>Project Scale</label>
           <select
-            id="budget"
-            value={form.budget}
-            onChange={set("budget")}
+            id="scale"
+            value={form.scale}
+            onChange={set("scale")}
             className={`${inputBase} appearance-none cursor-pointer`}
           >
-            <option value="" disabled>Select a range</option>
-            {budgetRanges.map((b) => (
-              <option key={b} value={b}>{b}</option>
+            <option value="" disabled>Select scale</option>
+            {projectScales.map((s) => (
+              <option key={s} value={s}>{s}</option>
             ))}
           </select>
         </div>
@@ -193,7 +193,7 @@ export default function ContactForm() {
             onChange={set("timeline")}
             className={`${inputBase} appearance-none cursor-pointer`}
           >
-            <option value="" disabled>Select a timeline</option>
+            <option value="" disabled>Select timeline</option>
             {timelines.map((t) => (
               <option key={t} value={t}>{t}</option>
             ))}
@@ -210,7 +210,7 @@ export default function ContactForm() {
           rows={5}
           value={form.brief}
           onChange={set("brief")}
-          placeholder="Tell us what you're building, what the key challenge is, and what a successful outcome looks like."
+          placeholder="Tell us what you're building, what the challenge is, and what a successful outcome looks like for you."
           className={`${inputBase} resize-none`}
         />
       </div>
@@ -219,7 +219,7 @@ export default function ContactForm() {
       {status === "error" && (
         <p className="text-xs text-red-400">
           Something went wrong. Please email us directly at{" "}
-          <a href="mailto:hello@jenwin.com" className="underline">hello@jenwin.com</a>.
+          <a href="mailto:hello@jenw.in" className="underline">hello@jenw.in</a>.
         </p>
       )}
 

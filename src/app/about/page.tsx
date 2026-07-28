@@ -94,13 +94,13 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-sm text-[#666666] leading-relaxed">
                 <p>
-                  Jenwin was founded with a specific frustration in mind: founders with real ideas, real budgets, and real urgency — consistently receiving work that looked generic, shipped late, or broke under pressure.
+                  Jenwin was founded in India with a specific frustration in mind: founders with real ideas, real budgets, and real urgency — consistently receiving work that looked generic, shipped late, or broke under pressure.
                 </p>
                 <p>
-                  We built an agency that solves for that. Not by being the cheapest, or the biggest, or the fastest. By being the most deliberate. By treating every project as if it's a product we're proud to put our name on.
+                  We built an agency that solves for that. Not by being the cheapest, or the biggest, or the fastest. By being the most deliberate. By treating every project as if it&apos;s a product we&apos;re proud to put our name on.
                 </p>
                 <p>
-                  Today, Jenwin works with founders, operators, and growth-stage businesses who want a development partner that thinks before it builds, communicates clearly, and ships work that holds up.
+                  Today, Jenwin works with Indian startups, D2C founders, SaaS builders, and growth-stage businesses who want a development partner that thinks before it builds, communicates clearly, and ships work that holds up.
                 </p>
               </div>
             </div>
@@ -155,9 +155,9 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#141414] border border-[#141414] rounded-sm overflow-hidden">
           {[
-            { value: "2021", label: "Founded" },
+            { value: "2021", label: "Founded in India" },
             { value: "50+", label: "Projects Delivered" },
-            { value: "12+", label: "Industries Served" },
+            { value: "15+", label: "Sectors Served" },
             { value: "100%", label: "Remote-Native" },
           ].map((stat, i) => (
             <FadeIn key={stat.label} delay={i * 0.06}>

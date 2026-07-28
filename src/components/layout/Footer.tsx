@@ -28,16 +28,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <JenwinLogo className="h-7 w-auto mb-5" />
+            <JenwinLogo width={120} height={34} className="mb-5" />
             <p className="text-[#666666] text-sm leading-relaxed max-w-xs">
-              Engineering, product thinking, and design discipline — built for founders who care about craft.
+              Engineering, product thinking, and design discipline — built for Indian founders who care about craft.
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a
-                href="mailto:hello@jenwin.com"
+                href="mailto:hello@jenw.in"
                 className="text-sm text-[#888888] hover:text-[#D81B60] transition-colors duration-200 flex items-center gap-1"
               >
-                hello@jenwin.com
+                hello@jenw.in
                 <ArrowUpRight size={12} />
               </a>
             </div>
@@ -69,10 +69,10 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-[#141414] max-w-7xl mx-auto px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-xs text-[#444444]">
-          © {year} Jenwin. All rights reserved.
+          © {year} Jenwin Technologies · jenw.in · All rights reserved.
         </p>
         <p className="text-xs text-[#333333]">
-          Designed and built with precision.
+          Made in India. Built with precision.
         </p>
       </div>
     </footer>

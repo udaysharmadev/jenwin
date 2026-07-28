@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/ui/PageTransition";
 
 export const metadata: Metadata = {
   title: {
@@ -66,7 +67,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full bg-[#080808] text-[#f0f0f0] flex flex-col" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>
