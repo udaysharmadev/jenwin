@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
 import TrustStrip from "@/components/sections/TrustStrip";
 import ServicesPreview from "@/components/sections/ServicesPreview";
+import BentoGrid from "@/components/sections/BentoGrid";
 import FeaturedWork from "@/components/sections/FeaturedWork";
 import WhyJenwin from "@/components/sections/WhyJenwin";
+import Founders from "@/components/sections/Founders";
 import ProcessPreview from "@/components/sections/ProcessPreview";
 import Testimonials from "@/components/sections/Testimonials";
 import CTABanner from "@/components/sections/CTABanner";
@@ -20,8 +22,10 @@ export default function Home() {
       <Hero />
       <TrustStrip />
       <ServicesPreview />
+      <BentoGrid />
       <FeaturedWork />
       <WhyJenwin />
+      <Founders />
       <ProcessPreview />
       <Testimonials />
       <CTABanner />

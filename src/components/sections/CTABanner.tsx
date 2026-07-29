@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import FadeIn from "@/components/ui/FadeIn";
+import GlitchText from "@/components/ui/GlitchText";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useProjectModal } from "@/components/ui/ModalContext";
 
 interface CTABannerProps {
   eyebrow?: string;
@@ -17,15 +22,31 @@ export default function CTABanner({
   primaryCta = { label: "Start a Project", href: "/contact" },
   secondaryCta = { label: "View Work", href: "/work" },
 }: CTABannerProps) {
+  const { openModal } = useProjectModal();
+
   return (
-    <section className="relative py-24 lg:py-36 overflow-hidden bg-[#060606] border-t border-[#111111]">
-      {/* Ruby glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse, rgba(216,27,96,0.1) 0%, transparent 65%)",
-          filter: "blur(20px)",
+    <section className="relative py-32 lg:py-48 overflow-hidden bg-[#030303]">
+      
+      {/* Dramatic red lightning bolt / line separator above */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#DC143C] to-transparent opacity-50" />
+      <motion.div 
+        className="absolute top-0 left-1/2 w-[200px] h-[1px] bg-[#FF0040] shadow-[0_0_20px_#FF0040]"
+        animate={{ 
+          x: ["-500%", "500%"],
+          opacity: [0, 1, 1, 0]
         }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Breathing Ruby glow */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse, rgba(220,20,60,0.15) 0%, transparent 65%)",
+          filter: "blur(40px)",
+        }}
+        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Fine grid */}
@@ -39,38 +60,40 @@ export default function CTABanner({
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
         <FadeIn>
-          <p className="flex items-center justify-center gap-3 mb-6">
-            <span className="inline-block w-6 h-px bg-[#D81B60]" />
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D81B60]">
+          <p className="flex items-center justify-center gap-3 mb-8">
+            <span className="inline-block w-8 h-px bg-[#DC143C]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#DC143C] font-mono">
               {eyebrow}
             </span>
-            <span className="inline-block w-6 h-px bg-[#D81B60]" />
+            <span className="inline-block w-8 h-px bg-[#DC143C]" />
           </p>
         </FadeIn>
 
         <FadeIn delay={0.05}>
-          <h2 className="text-headline text-white mb-6">{heading}</h2>
+          <h2 className="text-display text-white mb-8 leading-tight">
+            <GlitchText text={heading} as="span" hoverOnly />
+          </h2>
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <p className="text-base text-[#666666] max-w-xl mx-auto mb-10">{subtext}</p>
+          <p className="text-lg text-[#888888] max-w-xl mx-auto mb-12">{subtext}</p>
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href={primaryCta.href}
-              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#D81B60] text-white text-sm font-semibold rounded-sm hover:bg-[#b01550] hover:shadow-[0_0_28px_rgba(216,27,96,0.45)] transition-all duration-200 active:scale-[0.98]"
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <button
+              onClick={openModal}
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-[#DC143C] text-white text-base font-bold rounded-sm hover:bg-[#FF0040] transition-all duration-300 magnetic hover:shadow-[0_0_40px_rgba(220,20,60,0.6)] active:scale-[0.98] cyber-border"
             >
               {primaryCta.label}
-              <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-            </Link>
+              <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
             <Link
               href={secondaryCta.href}
-              className="group inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a2a2a] text-sm font-semibold text-[#aaaaaa] rounded-sm hover:border-[#444444] hover:text-white transition-all duration-200 active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-8 py-4 border border-[#2a2a2a] text-base font-bold text-[#aaaaaa] rounded-sm hover:border-[#DC143C]/50 hover:bg-[#DC143C]/10 hover:text-white transition-all duration-300 magnetic active:scale-[0.98]"
             >
               {secondaryCta.label}
-              <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </FadeIn>

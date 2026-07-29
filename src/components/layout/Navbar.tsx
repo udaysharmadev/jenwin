@@ -1,11 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import JenwinLogo from "@/components/ui/JenwinLogo";
+import { useProjectModal } from "@/components/ui/ModalContext";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -17,6 +17,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const { openModal } = useProjectModal();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -36,100 +38,162 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-[#080808]/95 backdrop-blur-md border-b border-[#1e1e1e]"
-            : "bg-transparent"
-        }`}
+        className={`fixed top-4 left-0 right-0 z-50 transition-all duration-500 flex justify-center px-4`}
       >
-        <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
+        <motion.nav 
+          className={`flex items-center justify-between h-14 px-6 rounded-full transition-all duration-500 w-full max-w-5xl ${
+            scrolled 
+              ? "bg-[#111111]/80 backdrop-blur-xl border border-[#1e1e1e] shadow-[0_4px_30px_rgba(0,0,0,0.5)]" 
+              : "bg-transparent border border-transparent"
+          }`}
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0" aria-label="Jenwin Home">
-            <JenwinLogo width={120} height={34} />
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 magnetic" aria-label="Jenwin Home">
+            <span className="font-display font-bold text-xl tracking-tighter text-white">
+              <span className="text-[#DC143C]">JEN</span>WIN.
+            </span>
           </Link>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium tracking-wide transition-colors duration-200 relative group ${
-                  pathname === link.href
-                    ? "text-white"
-                    : "text-[#888888] hover:text-white"
-                }`}
-              >
-                {link.label}
-                <span
-                  className={`absolute -bottom-0.5 left-0 h-px bg-[#D81B60] transition-all duration-300 ${
-                    pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
+          {/* Desktop links - Glass pill style */}
+          <div className="hidden md:flex items-center relative" onMouseLeave={() => setHoveredLink(null)}>
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-5 py-2 text-sm font-medium tracking-wide transition-colors duration-300 z-10 ${
+                    isActive ? "text-white" : "text-[#888888] hover:text-white"
                   }`}
+                  onMouseEnter={() => setHoveredLink(link.href)}
+                >
+                  {link.label}
+                  
+                  {/* Active dot indicator */}
+                  {isActive && (
+                    <motion.div 
+                      layoutId="active-dot"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#DC143C]"
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+            
+            {/* Hover background pill */}
+            <AnimatePresence>
+              {hoveredLink && (
+                <motion.div
+                  className="absolute inset-y-0 bg-white/5 rounded-full z-0"
+                  layoutId="hover-pill"
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: 1,
+                    // Use standard CSS for position matching
+                    left: navLinks.findIndex(l => l.href === hoveredLink) * 80 + 'px', 
+                    width: '80px'
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 />
-              </Link>
-            ))}
+              )}
+            </AnimatePresence>
           </div>
 
           {/* CTA + hamburger */}
           <div className="flex items-center gap-4">
-            <Link
-              href="/contact"
-              className="hidden md:inline-flex items-center px-5 py-2.5 text-sm font-semibold bg-[#D81B60] text-white rounded-sm hover:bg-[#b01550] transition-all duration-200 hover:shadow-[0_0_20px_rgba(216,27,96,0.4)]"
-            >
-              Start a Project
-            </Link>
             <button
-              className="md:hidden p-2 text-[#888888] hover:text-white transition-colors"
+              onClick={openModal}
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2 text-sm font-bold text-white rounded-md relative overflow-hidden group"
+            >
+              {/* Base bg */}
+              <span className="absolute inset-0 bg-[#DC143C] rounded-md transition-all duration-300" />
+              {/* Hover gradient */}
+              <span className="absolute inset-0 bg-gradient-to-r from-[#8B0000] to-[#FF0040] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md" />
+              {/* Glow */}
+              <span className="absolute inset-0 rounded-md shadow-[0_0_0_0_rgba(220,20,60,0)] group-hover:shadow-[0_0_25px_rgba(220,20,60,0.5)] transition-shadow duration-300" />
+              <span className="relative z-10 flex items-center gap-2 text-white">
+                Start a Project
+              </span>
+            </button>
+            
+            <button
+              className="md:hidden p-2 text-white magnetic relative z-[60]"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              <motion.div
+                animate={{ rotate: mobileOpen ? 90 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              </motion.div>
             </button>
           </div>
-        </nav>
+        </motion.nav>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile menu - Cinematic Full Screen */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#080808] flex flex-col pt-20 px-6"
+            initial={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
+            animate={{ opacity: 1, clipPath: "circle(150% at 100% 0%)" }}
+            exit={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 bg-[#060606] flex flex-col justify-center px-8"
           >
-            <div className="flex flex-col gap-1 pt-6">
+            {/* Background noise and scanline */}
+            <div className="absolute inset-0 noise-overlay opacity-30" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(220,20,60,0.05)_51%)] bg-[length:100%_4px]" />
+            
+            <div className="relative z-10 flex flex-col gap-6">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07 }}
+                  initial={{ opacity: 0, y: 40, rotateX: 90 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ delay: 0.2 + i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ transformPerspective: 1000 }}
                 >
                   <Link
                     href={link.href}
-                    className={`block py-4 text-2xl font-semibold tracking-tight border-b border-[#1e1e1e] transition-colors ${
-                      pathname === link.href ? "text-white" : "text-[#888888] hover:text-white"
+                    className={`block text-6xl font-display font-bold tracking-tighter transition-colors ${
+                      pathname === link.href ? "text-white" : "text-[#444] hover:text-[#DC143C]"
                     }`}
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
+              
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.07 }}
-                className="pt-6"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + navLinks.length * 0.1, duration: 0.5 }}
+                className="pt-12"
               >
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center px-6 py-3.5 text-base font-semibold bg-[#D81B60] text-white rounded-sm w-full justify-center hover:bg-[#b01550] transition-colors"
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    openModal();
+                  }}
+                  className="inline-flex items-center gap-2 text-2xl font-display font-bold text-[#DC143C] hover:text-white transition-colors text-left"
                 >
                   Start a Project
-                </Link>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                </button>
               </motion.div>
             </div>
           </motion.div>

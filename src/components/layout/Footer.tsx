@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import JenwinLogo from "@/components/ui/JenwinLogo";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const footerLinks = {
   Company: [
@@ -22,23 +24,46 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#1e1e1e] bg-[#080808]">
+    <footer className="bg-[#030303] relative border-t border-[#111]">
+      
+      {/* Animated gradient border top */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#DC143C] to-transparent opacity-30" />
+      <motion.div 
+        className="absolute top-0 left-0 h-[1px] w-1/3 bg-gradient-to-r from-transparent via-[#FF0040] to-transparent shadow-[0_0_15px_#FF0040]"
+        animate={{ x: ["-100%", "300%"] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+      />
+
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <JenwinLogo width={120} height={34} className="mb-5" />
-            <p className="text-[#666666] text-sm leading-relaxed max-w-xs">
-              Engineering, product thinking, and design discipline — built for Indian founders who care about craft.
+            <Link href="/" className="inline-block mb-6 magnetic">
+              <span className="font-display font-bold text-2xl tracking-tighter text-white">
+                <span className="text-[#DC143C]">JEN</span>WIN.
+              </span>
+            </Link>
+            <p className="text-[#888888] text-sm leading-relaxed max-w-xs">
+              Engineering, product thinking, and design discipline — built for founders who care about craft.
             </p>
-            <div className="flex items-center gap-4 mt-6">
+            <div className="flex flex-wrap items-center gap-6 mt-8">
               <a
                 href="mailto:hello@jenw.in"
-                className="text-sm text-[#888888] hover:text-[#D81B60] transition-colors duration-200 flex items-center gap-1"
+                className="text-sm font-bold text-white hover:text-[#DC143C] transition-colors duration-300 flex items-center gap-1 group magnetic"
               >
                 hello@jenw.in
-                <ArrowUpRight size={12} />
+                <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href="https://wa.me/919999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-bold text-[#25D366] hover:text-[#1ebd5a] transition-colors duration-300 flex items-center gap-1.5 group magnetic"
+              >
+                <MessageCircle size={15} />
+                WhatsApp Us
+                <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
           </div>
@@ -46,17 +71,18 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([group, links]) => (
             <div key={group}>
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#555555] mb-5">
+              <p className="text-xs font-bold font-mono uppercase tracking-widest text-[#555555] mb-6">
                 {group}
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[#666666] hover:text-white transition-colors duration-200"
+                      className="text-sm text-[#888888] hover:text-white transition-colors duration-300 relative group magnetic inline-block"
                     >
                       {link.label}
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#DC143C] transition-all duration-300 group-hover:w-full" />
                     </Link>
                   </li>
                 ))}
@@ -67,13 +93,21 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-[#141414] max-w-7xl mx-auto px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-[#444444]">
-          © {year} Jenwin Technologies · jenw.in · All rights reserved.
+      <div className="border-t border-[#111111] max-w-7xl mx-auto px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-xs font-mono text-[#555555]">
+          © {year} Jenwin Technologies · All rights reserved.
         </p>
-        <p className="text-xs text-[#333333]">
-          Made in India. Built with precision.
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="text-xs font-mono text-[#555555]">
+            Made in India
+          </p>
+          {/* Animated Flag/Dot */}
+          <motion.div 
+            className="w-1.5 h-1.5 rounded-full bg-[#DC143C]"
+            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        </div>
       </div>
     </footer>
   );

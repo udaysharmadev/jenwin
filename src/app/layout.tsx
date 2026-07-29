@@ -3,8 +3,13 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/ui/PageTransition";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+import CurrentlyBuildingWidget from "@/components/ui/CurrentlyBuildingWidget";
+import { ModalProvider } from "@/components/ui/ModalContext";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jenwin.in"),
   title: {
     default: "Jenwin — Development Agency",
     template: "%s | Jenwin",
@@ -58,19 +63,35 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
+        {/* Preload critical font weights only */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full bg-[#080808] text-[#f0f0f0] flex flex-col" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
-        <Navbar />
-        <main className="flex-1">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <Footer />
+      <body className="min-h-full bg-[#030303] text-[#f8f8f8] flex flex-col" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+        <NextTopLoader
+          color="#DC143C"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #DC143C,0 0 5px #DC143C"
+        />
+        <ModalProvider>
+          <LoadingScreen />
+          <Navbar />
+          <main className="flex-1 relative z-10">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+          <CurrentlyBuildingWidget />
+        </ModalProvider>
       </body>
     </html>
   );

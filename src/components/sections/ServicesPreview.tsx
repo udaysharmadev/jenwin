@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import FadeIn from "@/components/ui/FadeIn";
+import HolographicCard from "@/components/ui/HolographicCard";
 import { Globe, LayoutDashboard, Rocket, Code2, Cpu, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useProjectModal } from "@/components/ui/ModalContext";
 
 const services = [
   {
@@ -46,79 +51,111 @@ const services = [
 ];
 
 export default function ServicesPreview() {
+  const { openModal } = useProjectModal();
+
   return (
-    <section className="py-24 lg:py-32 max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 lg:py-32 max-w-7xl mx-auto px-6 lg:px-8 bg-[#030303]">
+      
+      {/* Background scanline effect */}
+      <div className="absolute inset-0 scanline-overlay opacity-20" />
+      
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
         <div>
           <FadeIn>
             <p className="flex items-center gap-3 mb-4">
-              <span className="inline-block w-6 h-px bg-[#D81B60]" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D81B60]">
+              <span className="inline-block w-6 h-px bg-[#DC143C]" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DC143C] font-mono">
                 What We Build
               </span>
             </p>
           </FadeIn>
           <FadeIn delay={0.05}>
             <h2 className="text-headline text-white">
-              Services built for<br />execution, not proposals.
+              Services built for<br />
+              <span className="text-ruby-gradient">execution</span>, not proposals.
             </h2>
           </FadeIn>
         </div>
         <FadeIn delay={0.1} direction="left">
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#888888] hover:text-white transition-colors duration-200 whitespace-nowrap"
+            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#888888] hover:text-[#DC143C] transition-colors duration-200 whitespace-nowrap magnetic"
           >
             All Services
-            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </FadeIn>
       </div>
 
       {/* Service grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#141414] rounded-sm overflow-hidden border border-[#141414]">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service, i) => {
           const Icon = service.icon;
           return (
-            <FadeIn key={service.id} delay={i * 0.07}>
-              <Link
-                href={service.href}
-                className="group flex flex-col gap-4 bg-[#0a0a0a] p-7 lg:p-8 h-full hover:bg-[#0f0f0f] transition-colors duration-200"
-              >
-                <div className="w-10 h-10 rounded-sm bg-[#161616] border border-[#222222] flex items-center justify-center group-hover:border-[#D81B60]/40 group-hover:bg-[#D81B60]/10 transition-all duration-200">
-                  <Icon size={18} className="text-[#D81B60]" />
-                </div>
-                <h3 className="text-sm font-semibold text-white">{service.title}</h3>
-                <p className="text-sm text-[#666666] leading-relaxed">{service.description}</p>
-                <div className="mt-auto pt-3 flex items-center gap-1.5 text-xs font-semibold text-[#444444] group-hover:text-[#D81B60] transition-colors duration-200">
-                  Learn more
-                  <ArrowRight size={11} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-                </div>
+            <FadeIn key={service.id} delay={i * 0.1}>
+              <Link href={service.href} className="block h-full magnetic group">
+                <HolographicCard className="h-full">
+                  <div className="flex flex-col gap-6 p-7 lg:p-8 h-full">
+                    {/* Animated Icon Container */}
+                    <div className="w-12 h-12 rounded-lg bg-[#111] border border-[#222] flex items-center justify-center group-hover:border-[#DC143C]/50 group-hover:bg-[#DC143C]/10 transition-all duration-300 relative overflow-hidden">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-tr from-[#DC143C] to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                      />
+                      <Icon 
+                        size={22} 
+                        className="text-[#666] group-hover:text-[#DC143C] transition-colors duration-300 relative z-10 group-hover:scale-110 transform" 
+                      />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-lg font-display font-bold text-white mb-2">{service.title}</h3>
+                      <p className="text-sm text-[#888] leading-relaxed group-hover:text-[#aaa] transition-colors">{service.description}</p>
+                    </div>
+                    
+                    <div className="mt-auto pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#444] group-hover:text-[#DC143C] transition-colors duration-300">
+                      Explore
+                      <motion.div
+                        initial={{ x: 0, opacity: 0 }}
+                        whileHover={{ x: 5, opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight size={14} />
+                      </motion.div>
+                    </div>
+                  </div>
+                </HolographicCard>
               </Link>
             </FadeIn>
           );
         })}
 
         {/* CTA tile */}
-        <FadeIn delay={services.length * 0.07}>
-          <Link
-            href="/contact"
-            className="group flex flex-col justify-between bg-[#D81B60]/5 border-[#D81B60]/10 p-7 lg:p-8 h-full hover:bg-[#D81B60]/10 transition-all duration-200"
+        <FadeIn delay={services.length * 0.1}>
+          <button
+            onClick={openModal}
+            className="group flex flex-col justify-between p-7 lg:p-8 h-full bg-[#0a0a0a] hover:bg-[#111111] transition-all duration-300 cyber-border rounded-sm overflow-hidden relative magnetic text-left w-full"
           >
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D81B60] mb-3">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <div className="relative z-10">
+              <p className="text-xs font-bold font-mono uppercase tracking-[0.18em] text-[#DC143C] mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#DC143C] animate-pulse" />
                 Start a Project
               </p>
-              <p className="text-sm text-[#666666] leading-relaxed">
+              <h3 className="text-xl font-display font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#DC143C] transition-all">
+                Custom Requirement?
+              </h3>
+              <p className="text-sm text-[#888888] leading-relaxed">
                 Have something specific in mind? Let&apos;s talk scope, timeline, and what it takes to ship it right.
               </p>
             </div>
-            <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
-              Book a Call
-              <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            
+            <div className="relative z-10 mt-8 flex items-center justify-between">
+              <span className="text-sm font-bold text-white">Book a Call</span>
+              <ArrowRight size={18} className="text-[#888888] transition-colors group-hover:text-white" />
             </div>
-          </Link>
+          </button>
         </FadeIn>
       </div>
     </section>
