@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -40,9 +41,13 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6 magnetic">
-              <span className="font-display font-bold text-2xl tracking-tighter text-white">
-                <span className="text-[#DC143C]">JEN</span>WIN.
-              </span>
+              <Image
+                src="/jenwin-logo.png"
+                alt="Jenwin"
+                width={140}
+                height={44}
+                style={{ mixBlendMode: "screen", objectFit: "contain" }}
+              />
             </Link>
             <p className="text-[#888888] text-sm leading-relaxed max-w-xs">
               Engineering, product thinking, and design discipline — built for founders who care about craft.

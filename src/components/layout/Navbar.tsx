@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -51,10 +52,15 @@ export default function Navbar() {
           transition={{ duration: 0.8, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0 magnetic" aria-label="Jenwin Home">
-            <span className="font-display font-bold text-xl tracking-tighter text-white">
-              <span className="text-[#DC143C]">JEN</span>WIN.
-            </span>
+          <Link href="/" className="flex items-center flex-shrink-0 magnetic" aria-label="Jenwin Home">
+            <Image
+              src="/jenwin-logo.png"
+              alt="Jenwin"
+              width={130}
+              height={40}
+              priority
+              style={{ mixBlendMode: "screen", objectFit: "contain" }}
+            />
           </Link>
 
           {/* Desktop links - Glass pill style */}
