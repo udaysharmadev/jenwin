@@ -4,6 +4,8 @@ import { LayoutDashboard, Users, FolderOpen, Settings, LogOut } from "lucide-rea
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

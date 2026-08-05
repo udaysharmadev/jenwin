@@ -1,6 +1,9 @@
 import { redirect } from 'next/navigation'
 import LoginForm from './LoginForm'
 
+// Force dynamic rendering — this page requires Supabase at runtime, not build time
+export const dynamic = 'force-dynamic'
+
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#030303] flex items-center justify-center p-6">
