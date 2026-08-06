@@ -1,10 +1,16 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, ArrowRight, ArrowLeft, Check, Globe, Zap, Rocket, Cpu, Clock, Calendar, Coffee, Loader2 } from "lucide-react";
-import { InlineWidget } from "react-calendly";
+import dynamic from "next/dynamic";
 import { createClient } from "@/utils/supabase/client";
+
+// Lazy-load Calendly — only loaded when user reaches the meeting step
+const InlineWidget = dynamic(
+  () => import("react-calendly").then((m) => ({ default: m.InlineWidget })),
+  { ssr: false, loading: () => <div className="h-full w-full bg-white animate-pulse" /> }
+);
 
 // ─── STEP DEFINITIONS ──────────────────────────────────────────────
 const STEPS = [
@@ -171,7 +177,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-4 md:inset-x-auto top-[5%] md:top-1/2 md:-translate-y-1/2 z-[301] max-w-xl mx-auto w-full md:w-[600px]"
+            className="fixed left-1/2 -translate-x-1/2 top-[5%] sm:top-1/2 sm:-translate-y-1/2 z-[301] w-[calc(100%-2rem)] max-w-[600px]"
           >
             <div className="bg-[#080808] border border-[#1a1a1a] rounded-2xl overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.8)] max-h-[90vh] flex flex-col">
 

@@ -18,23 +18,21 @@ export default function FadeIn({
   direction = "up",
   className = "",
   once = true,
-  duration = 0.6,
+  duration = 0.45,
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin: "-80px" });
+  const isInView = useInView(ref, { once, margin: "-40px" });
 
   const dirMap = {
-    up: { y: 24, x: 0 },
-    down: { y: -24, x: 0 },
-    left: { x: 24, y: 0 },
-    right: { x: -24, y: 0 },
-    none: { x: 0, y: 0 },
+    up:    { y: 18, x: 0 },
+    down:  { y: -18, x: 0 },
+    left:  { x: 20, y: 0 },
+    right: { x: -20, y: 0 },
+    none:  { x: 0,  y: 0 },
   };
 
   const initial = { opacity: 0, ...dirMap[direction] };
-  const animate = isInView
-    ? { opacity: 1, x: 0, y: 0 }
-    : initial;
+  const animate = isInView ? { opacity: 1, x: 0, y: 0 } : initial;
 
   return (
     <motion.div
@@ -44,7 +42,7 @@ export default function FadeIn({
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.25, 0.46, 0.45, 0.94],
       }}
       className={className}
     >

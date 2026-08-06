@@ -86,7 +86,7 @@ export default function ContactForm() {
   };
 
   const inputBase =
-    "w-full bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm px-4 py-3 text-sm text-white placeholder-[#444444] focus:outline-none focus:border-[#D81B60] transition-colors duration-200";
+    "w-full bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm px-4 py-3 text-sm text-white placeholder-[#444444] focus:outline-none focus:border-[#DC143C] transition-colors duration-200";
 
   const labelBase = "block text-xs font-semibold uppercase tracking-widest text-[#555555] mb-2";
 
@@ -97,8 +97,8 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center justify-center text-center gap-5 py-20"
       >
-        <div className="w-14 h-14 rounded-full bg-[#D81B60]/15 flex items-center justify-center">
-          <CheckCircle2 size={28} className="text-[#D81B60]" />
+        <div className="w-14 h-14 rounded-full bg-[#DC143C]/15 flex items-center justify-center">
+          <CheckCircle2 size={28} className="text-[#DC143C]" />
         </div>
         <h3 className="text-xl font-bold text-white">Message received.</h3>
         <p className="text-sm text-[#666666] max-w-xs">
@@ -227,7 +227,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#D81B60] text-white text-sm font-semibold rounded-sm hover:bg-[#b01550] hover:shadow-[0_0_28px_rgba(216,27,96,0.4)] transition-all duration-200 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+        className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#DC143C] text-white text-sm font-semibold rounded-sm hover:bg-[#FF0040] hover:shadow-[0_0_28px_rgba(220,20,60,0.5)] transition-all duration-200 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === "loading" ? (
           <>

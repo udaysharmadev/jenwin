@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -19,6 +19,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [pillStyle, setPillStyle] = useState<{ left: number; width: number } | null>(null);
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const { openModal } = useProjectModal();
 
   useEffect(() => {
@@ -27,6 +29,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -35,6 +38,20 @@ export default function Navbar() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
+
+  function handleLinkHover(href: string) {
+    const el = linkRefs.current[href];
+    if (!el) return;
+    const parent = el.parentElement;
+    if (!parent) return;
+    const parentRect = parent.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    setPillStyle({
+      left: elRect.left - parentRect.left,
+      width: elRect.width,
+    });
+    setHoveredLink(href);
+  }
 
   return (
     <>
@@ -64,18 +81,19 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop links - Glass pill style */}
-          <div className="hidden md:flex items-center relative" onMouseLeave={() => setHoveredLink(null)}>
+          <div className="hidden md:flex items-center relative" onMouseLeave={() => { setHoveredLink(null); setPillStyle(null); }}>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               
               return (
-                <Link
+                <a
                   key={link.href}
                   href={link.href}
+                  ref={(el) => { linkRefs.current[link.href] = el; }}
                   className={`relative px-5 py-2 text-sm font-medium tracking-wide transition-colors duration-300 z-10 ${
                     isActive ? "text-white" : "text-[#888888] hover:text-white"
                   }`}
-                  onMouseEnter={() => setHoveredLink(link.href)}
+                  onMouseEnter={() => handleLinkHover(link.href)}
                 >
                   {link.label}
                   
@@ -87,22 +105,20 @@ export default function Navbar() {
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     />
                   )}
-                </Link>
+                </a>
               );
             })}
             
-            {/* Hover background pill */}
+            {/* Hover background pill — positioned by measured link widths */}
             <AnimatePresence>
-              {hoveredLink && (
+              {hoveredLink && pillStyle && (
                 <motion.div
                   className="absolute inset-y-0 bg-white/5 rounded-full z-0"
-                  layoutId="hover-pill"
                   initial={{ opacity: 0 }}
                   animate={{ 
                     opacity: 1,
-                    // Use standard CSS for position matching
-                    left: navLinks.findIndex(l => l.href === hoveredLink) * 80 + 'px', 
-                    width: '80px'
+                    left: pillStyle.left,
+                    width: pillStyle.width,
                   }}
                   exit={{ opacity: 0 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}

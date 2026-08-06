@@ -35,15 +35,15 @@ export default function ContactPage() {
         <div
           className="absolute top-0 left-0 w-[600px] h-[500px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle at 20% 0%, rgba(216,27,96,0.08) 0%, transparent 65%)",
+            background: "radial-gradient(circle at 20% 0%, rgba(220,20,60,0.08) 0%, transparent 65%)",
             filter: "blur(60px)",
           }}
         />
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <p className="flex items-center gap-3 mb-5">
-              <span className="inline-block w-6 h-px bg-[#D81B60]" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#D81B60]">Contact</span>
+              <span className="inline-block w-6 h-px bg-[#DC143C]" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DC143C]">Contact</span>
             </p>
           </FadeIn>
           <FadeIn delay={0.05}>
@@ -79,8 +79,8 @@ export default function ContactPage() {
               return (
                 <FadeIn key={item.title} delay={0.1 + i * 0.08} direction="left">
                   <div className="flex gap-4 p-5 bg-[#0a0a0a] border border-[#161616] rounded-sm">
-                    <div className="w-8 h-8 rounded-sm bg-[#D81B60]/10 border border-[#D81B60]/20 flex items-center justify-center shrink-0">
-                      <Icon size={15} className="text-[#D81B60]" />
+                    <div className="w-8 h-8 rounded-sm bg-[#DC143C]/10 border border-[#DC143C]/20 flex items-center justify-center shrink-0">
+                      <Icon size={15} className="text-[#DC143C]" />
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-white mb-1">{item.title}</p>
@@ -91,19 +91,27 @@ export default function ContactPage() {
               );
             })}
 
-            {/* Direct email */}
+            {/* Direct contact options */}
             <FadeIn delay={0.35} direction="left">
-              <div className="p-5 bg-[#0a0a0a] border border-[#161616] rounded-sm">
-                <p className="text-xs font-semibold uppercase tracking-widest text-[#444444] mb-3">
-                  Prefer email?
+              <div className="p-5 bg-[#0a0a0a] border border-[#161616] rounded-sm space-y-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#444444]">
+                  Prefer to reach out directly?
                 </p>
                 <a
                   href="mailto:hello@jenw.in"
-                  className="text-sm font-semibold text-white hover:text-[#D81B60] transition-colors duration-200"
+                  className="block text-sm font-semibold text-white hover:text-[#DC143C] transition-colors duration-200"
                 >
                   hello@jenw.in
                 </a>
-                <p className="text-xs text-[#444444] mt-1">Mon–Sat · IST timezone.</p>
+                <a
+                  href="https://wa.me/919560835836"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm font-semibold text-[#25D366] hover:text-[#1ebd5a] transition-colors duration-200"
+                >
+                  +91 95608 35836 (WhatsApp)
+                </a>
+                <p className="text-xs text-[#444444]">Mon–Sat · IST timezone.</p>
               </div>
             </FadeIn>
           </div>

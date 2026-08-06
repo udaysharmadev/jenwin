@@ -61,7 +61,7 @@ export default function Footer() {
                 <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
               <a
-                href="https://wa.me/919999999999"
+                href="https://wa.me/919560835836"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-bold text-[#25D366] hover:text-[#1ebd5a] transition-colors duration-300 flex items-center gap-1.5 group magnetic"

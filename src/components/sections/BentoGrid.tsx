@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Zap, Code2, Rocket, Globe, ShieldCheck, Cpu } from "lucide-react";
 
 const bentoItems = [
@@ -82,6 +82,15 @@ const bentoItems = [
 export default function BentoGrid() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const h = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", h);
+    return () => mq.removeEventListener("change", h);
+  }, []);
 
   return (
     <section ref={ref} className="py-24 lg:py-32 bg-[#030303] relative overflow-hidden">
@@ -181,8 +190,8 @@ export default function BentoGrid() {
                 <motion.div
                   className="w-8 h-8 rounded-full"
                   style={{ background: `${item.accent}15`, border: `1px solid ${item.accent}30` }}
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                  animate={isMobile ? {} : { scale: [1, 1.2, 1] }}
+                  transition={isMobile ? {} : { duration: 2 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
                 />
               </div>
             </motion.div>

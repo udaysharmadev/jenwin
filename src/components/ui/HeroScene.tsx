@@ -184,10 +184,11 @@ function SmallGlassSphere() {
 
 export default function HeroScene() {
   return (
-    <div className="absolute inset-0 w-full h-full" aria-hidden="true">
+    // Overflow visible so rings extend beyond canvas bounds naturally
+    <div className="absolute inset-0 w-full h-full overflow-visible" aria-hidden="true">
       <Canvas
-        camera={{ position: [-1, 0, 6], fov: 45 }}
-        dpr={[1, 2]}
+        camera={{ position: [1.2, 0, 7], fov: 55 }}
+        dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent", width: "100%", height: "100%", pointerEvents: "none" }}
       >
@@ -197,17 +198,20 @@ export default function HeroScene() {
         <pointLight position={[0, 8, 0]} intensity={1} color="#8B0000" />
         <pointLight position={[0, 0, 0]} intensity={1} color="#DC143C" />
 
-        <FloatingRubyOrb />
-        <FloatingMoon />
-        
-        {/* Orbiting rings - increased count and blood red variants */}
-        <OrbitingRing radius={1.9} speed={0.4} tilt={0.5} color="#DC143C" thickness={0.02} />
-        <OrbitingRing radius={2.4} speed={-0.25} tilt={1.1} color="#8B0000" />
-        <OrbitingRing radius={2.8} speed={0.18} tilt={0.3} color="#FF0040" thickness={0.01} />
-        <OrbitingRing radius={3.2} speed={-0.1} tilt={1.5} color="#5e0000" />
-        
-        <Particles />
-        <SmallGlassSphere />
+        {/* Scene group shifted right so rings have room and don't clip */}
+        <group position={[0.8, 0, 0]}>
+          <FloatingRubyOrb />
+          <FloatingMoon />
+          
+          {/* Orbiting rings — slightly tighter so outermost ring stays visible */}
+          <OrbitingRing radius={1.9} speed={0.4} tilt={0.5} color="#DC143C" thickness={0.02} />
+          <OrbitingRing radius={2.3} speed={-0.25} tilt={1.1} color="#8B0000" />
+          <OrbitingRing radius={2.65} speed={0.18} tilt={0.3} color="#FF0040" thickness={0.01} />
+          <OrbitingRing radius={3.0} speed={-0.1} tilt={1.5} color="#5e0000" />
+          
+          <Particles />
+          <SmallGlassSphere />
+        </group>
       </Canvas>
     </div>
   );

@@ -6,6 +6,7 @@ import GlitchText from "@/components/ui/GlitchText";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useProjectModal } from "@/components/ui/ModalContext";
+import { useState, useEffect } from "react";
 
 interface CTABannerProps {
   eyebrow?: string;
@@ -24,6 +25,16 @@ export default function CTABanner({
 }: CTABannerProps) {
   const { openModal } = useProjectModal();
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const h = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", h);
+    return () => mq.removeEventListener("change", h);
+  }, []);
+
   return (
     <section className="relative py-32 lg:py-48 overflow-hidden bg-[#030303]">
       
@@ -31,22 +42,19 @@ export default function CTABanner({
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#DC143C] to-transparent opacity-50" />
       <motion.div 
         className="absolute top-0 left-1/2 w-[200px] h-[1px] bg-[#FF0040] shadow-[0_0_20px_#FF0040]"
-        animate={{ 
+        animate={isMobile ? {} : { 
           x: ["-500%", "500%"],
           opacity: [0, 1, 1, 0]
         }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        transition={isMobile ? {} : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Breathing Ruby glow */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] pointer-events-none"
+      {/* Static ruby glow — no animated blur on mobile */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse, rgba(220,20,60,0.15) 0%, transparent 65%)",
-          filter: "blur(40px)",
+          background: "radial-gradient(ellipse, rgba(220,20,60,0.12) 0%, transparent 65%)",
         }}
-        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Fine grid */}

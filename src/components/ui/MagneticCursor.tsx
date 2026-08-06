@@ -11,6 +11,11 @@ export default function MagneticCursor() {
   const cursorY = useSpring(0, { stiffness: 300, damping: 20 });
 
   useEffect(() => {
+    // Disable on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
     setIsClient(true);
     
     const moveCursor = (e: MouseEvent) => {
