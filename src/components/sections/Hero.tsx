@@ -16,11 +16,11 @@ const HeroScene = dynamic(() => import("@/components/ui/HeroScene"), {
   loading: () => <div className="w-full h-full" />,
 });
 
-const TYPEWRITER_TEXTS = ["Development Agency", "UI Engineering", "MVP Studio", "Digital Craftsmen"];
+const TYPEWRITER_TEXTS = ["Development Agency", "App Development", "MVP Studio", "Design Studio"];
 
 const stats = [
   { value: 50,  suffix: "+",   label: "Projects",     icon: CheckCircle2 },
-  { value: 8,   prefix: "< ",  suffix: " wk", label: "MVP Timeline", icon: Clock },
+  { value: 7,   prefix: "< ",  suffix: " days", label: "MVP Timeline", icon: Clock },
   { value: 100, suffix: "%",   label: "On-time",      icon: Zap },
   { value: 24,  suffix: "/7",  label: "Available",    icon: Globe },
 ];
@@ -156,7 +156,7 @@ export default function Hero() {
             transition={{ duration: 0.45, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="text-[15px] sm:text-base lg:text-lg text-[#888] max-w-md leading-relaxed mb-8 sm:mb-10"
           >
-            Engineering precision, product thinking, and design discipline — for Indian founders building what&apos;s next.
+            Engineering, design, and product thinking, working together for Indian founders who want to build something real.
           </motion.p>
 
           {/* CTAs */}

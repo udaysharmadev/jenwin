@@ -1,35 +1,21 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { X, Code2 } from "lucide-react";
 import Link from "next/link";
-import { createClient } from "@/utils/supabase/client";
+
+// Static config — update manually when working on a project
+const CURRENTLY_BUILDING = {
+  active: false,
+  title: "Working on something cool",
+  link: "/work",
+};
 
 export default function CurrentlyBuildingWidget() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [config, setConfig] = useState<{ active: boolean; title: string; link: string } | null>(null);
+  const [isVisible, setIsVisible] = useState(CURRENTLY_BUILDING.active);
 
-  useEffect(() => {
-    async function loadConfig() {
-      const supabase = createClient();
-      const { data } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("id", "currently_building")
-        .single();
-      
-      if (data?.value) {
-        setConfig(data.value);
-        if (data.value.active) {
-          setIsVisible(true);
-        }
-      }
-    }
-    loadConfig();
-  }, []);
-
-  if (!isVisible || !config || !config.active) return null;
+  if (!isVisible || !CURRENTLY_BUILDING.active) return null;
 
   return (
     <AnimatePresence>
@@ -38,38 +24,41 @@ export default function CurrentlyBuildingWidget() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: "spring", stiffness: 400, damping: 25, delay: 1 }}
-        className="fixed bottom-6 right-6 z-[100] hidden md:block"
+        className="fixed bottom-6 left-6 z-[200] max-w-[280px]"
       >
-        <div className="relative group bg-[#0d0d0d]/80 backdrop-blur-md border border-[#1a1a1a] rounded-2xl p-4 shadow-2xl hover:border-[#333] transition-colors pr-12">
-          {/* Glowing background effect */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#DC143C]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="bg-[#0a0a0a] border border-[#1e1e1e] rounded-2xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.8)] relative overflow-hidden">
+          {/* Red glow accent */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#DC143C]/10 rounded-full blur-2xl pointer-events-none" />
 
-          <button 
+          {/* Close button */}
+          <button
             onClick={() => setIsVisible(false)}
-            className="absolute top-3 right-3 text-[#555] hover:text-white transition-colors p-1"
-            aria-label="Close widget"
+            className="absolute top-3 right-3 w-5 h-5 rounded-full bg-[#1a1a1a] flex items-center justify-center hover:bg-[#2a2a2a] transition-colors"
           >
-            <X size={14} />
+            <X size={10} className="text-[#666]" />
           </button>
 
-          <Link href={config.link} className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-[#111] border border-[#222] flex items-center justify-center shrink-0 relative">
-              <Code2 size={18} className="text-[#DC143C]" />
-              {/* Pulse dot */}
-              <span className="absolute top-0 right-0 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500 border-2 border-[#111]"></span>
-              </span>
+          {/* Content */}
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#DC143C]/15 border border-[#DC143C]/30 flex items-center justify-center shrink-0">
+              <Code2 size={14} className="text-[#DC143C]" />
             </div>
             <div>
-              <p className="text-[10px] font-mono text-[#555] uppercase tracking-widest mb-1">
-                Currently Building
-              </p>
-              <p className="text-sm font-bold text-white group-hover:text-[#DC143C] transition-colors">
-                {config.title}
-              </p>
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#DC143C] animate-pulse" />
+                <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#DC143C]">
+                  Currently Building
+                </span>
+              </div>
+              <Link
+                href={CURRENTLY_BUILDING.link}
+                className="text-sm font-bold text-white hover:text-[#DC143C] transition-colors leading-tight block"
+              >
+                {CURRENTLY_BUILDING.title}
+              </Link>
+              <p className="text-[10px] text-[#555] mt-1">Click to see more work</p>
             </div>
-          </Link>
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>

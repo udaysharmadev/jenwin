@@ -11,13 +11,13 @@ const steps = [
     title: "Discover",
     icon: Search,
     description: "We map goals, audience, constraints, and scope. Clarity before commitment.",
-    detail: "Deep-dive calls, competitor analysis, and a clear project brief — before a single wireframe.",
+    detail: "Deep-dive calls, competitor analysis, and a clear project brief. All done before a single wireframe.",
   },
   {
     number: "02",
     title: "Design",
     icon: Paintbrush,
-    description: "Structure, content, visual language, and interaction — aligned before a line of code.",
+    description: "Structure, content, visual language, and interaction. All aligned before a line of code.",
     detail: "Figma prototypes, user flows, and design system setup. You approve before we build.",
   },
   {

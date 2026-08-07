@@ -1,101 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import FadeIn from "@/components/ui/FadeIn";
 import CTABanner from "@/components/sections/CTABanner";
-import { ArrowRight, Folder } from "lucide-react";
-import { createClient } from "@/utils/supabase/server";
-import { Suspense } from "react";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Work — Jenwin",
   description:
-    "Selected projects from Jenwin — websites, web apps, and MVPs built with engineering precision and design discipline.",
+    "Real projects we've built — e-commerce stores, apps, brand sites, and full-stack platforms for founders across India.",
 };
-
-async function ProjectGrid() {
-  const supabase = await createClient();
-  const { data: projects } = await supabase
-    .from("case_studies")
-    .select("slug, type, title, tagline, outcome, stack, accent, bg_gradient, label")
-    .eq("published", true)
-    .order("created_at", { ascending: false });
-
-  if (!projects || projects.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-32 text-center gap-6">
-        <div className="w-16 h-16 rounded-2xl bg-[#111] border border-[#1e1e1e] flex items-center justify-center">
-          <Folder size={28} className="text-[#333]" />
-        </div>
-        <div>
-          <h2 className="text-xl font-display font-bold text-white mb-2">Case studies coming soon</h2>
-          <p className="text-sm text-[#555] max-w-sm leading-relaxed">
-            We&apos;re documenting our work properly. In the meantime, start a conversation and we&apos;ll walk you through what we&apos;ve built.
-          </p>
-        </div>
-        <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-[#DC143C] text-white text-sm font-bold rounded-md hover:bg-[#FF0040] transition-all duration-200"
-        >
-          Start a Conversation
-          <ArrowRight size={14} />
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {projects.map((project, index) => (
-        <FadeIn key={project.slug} delay={index * 0.1}>
-          <Link
-            href={`/work/${project.slug}`}
-            className="group block relative overflow-hidden rounded-2xl bg-[#080808] border border-[#1a1a1a] transition-all duration-500 hover:border-[#333] hover:bg-[#0c0c0c]"
-          >
-            <div className="flex flex-col gap-3 p-7 flex-1">
-              <h2 className="text-xl font-bold text-white group-hover:text-[#DC143C] transition-colors">{project.title}</h2>
-              <p className="text-sm text-[#666666] leading-relaxed group-hover:text-[#888]">{project.tagline}</p>
-
-              <div className="flex items-start gap-2 text-xs text-[#888888] bg-[#111111] border border-[#1a1a1a] rounded-sm px-3 py-2.5 mt-1">
-                <span className="text-[#DC143C] mt-0.5">→</span>
-                <span>{project.outcome || "See case study for details"}</span>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-1">
-                {project.stack?.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] font-semibold uppercase tracking-widest text-[#444444] bg-[#111111] border border-[#1e1e1e] px-2 py-1 rounded-sm group-hover:border-[#333] transition-colors"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-auto pt-4 flex items-center gap-1.5 text-xs font-semibold text-[#444444] group-hover:text-[#DC143C] transition-colors duration-200">
-                Read Case Study
-                <ArrowRight size={11} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </div>
-            </div>
-          </Link>
-        </FadeIn>
-      ))}
-    </div>
-  );
-}
-
-function ProjectGridSkeleton() {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {[1, 2, 3, 4].map((i) => (
-        <div
-          key={i}
-          className="h-[280px] rounded-2xl bg-[#080808] border border-[#111] animate-pulse"
-          style={{ animationDelay: `${i * 100}ms` }}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function WorkPage() {
   return (
@@ -113,17 +28,17 @@ export default function WorkPage() {
           <FadeIn>
             <p className="flex items-center gap-3 mb-5">
               <span className="inline-block w-6 h-px bg-[#DC143C]" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DC143C]">Selected Work</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DC143C]">Our Work</span>
             </p>
           </FadeIn>
           <FadeIn delay={0.05}>
             <h1 className="text-headline text-white max-w-2xl mb-6">
-              Projects built for real outcomes.
+              Real projects. Real results.
             </h1>
           </FadeIn>
           <FadeIn delay={0.1}>
             <p className="text-base text-[#666666] max-w-lg leading-relaxed">
-              A curated selection of our work. Every project here has a story — context, problem, approach, and what shipped.
+              We don&apos;t do portfolio fluff. Every project here is live, built by us, and shipped to real users.
             </p>
           </FadeIn>
         </div>
@@ -134,15 +49,119 @@ export default function WorkPage() {
 
       {/* Projects grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
-        <Suspense fallback={<ProjectGridSkeleton />}>
-          <ProjectGrid />
-        </Suspense>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {projects.map((project, index) => (
+            <FadeIn key={project.slug} delay={index * 0.07}>
+              <Link
+                href={`/work/${project.slug}`}
+                className="group block relative overflow-hidden rounded-2xl bg-[#080808] border border-[#1a1a1a] transition-all duration-500 hover:border-[#333] hover:bg-[#0c0c0c] hover:shadow-[0_0_40px_rgba(0,0,0,0.4)]"
+              >
+                {/* Accent top border */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `linear-gradient(90deg, ${project.accent}, transparent)` }}
+                />
+
+                {/* Screenshot / Image area */}
+                <div className="relative w-full h-48 bg-[#0d0d0d] overflow-hidden border-b border-[#111]">
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700"
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0 flex items-center justify-center"
+                      style={{ background: `radial-gradient(circle, ${project.accent}10 0%, transparent 70%)` }}
+                    >
+                      <span className="text-2xl font-black font-display text-[#333]">
+                        {project.logoText || project.title.slice(0, 2).toUpperCase()}
+                      </span>
+                    </div>
+                  )}
+                  {/* Image overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
+
+                  {/* Type badge — overlaid on image */}
+                  <div className="absolute top-4 right-4">
+                    <span
+                      className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm"
+                      style={{
+                        background: `${project.accent}22`,
+                        color: project.accent,
+                        border: `1px solid ${project.accent}35`,
+                        backdropFilter: "blur(8px)",
+                      }}
+                    >
+                      {project.type}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card content */}
+                <div className="p-6 lg:p-7">
+                  {/* Logo + title row */}
+                  <div className="flex items-start justify-between gap-4 mb-3">
+                    <div>
+                      <h2 className="text-xl font-bold text-white group-hover:text-[#DC143C] transition-colors duration-300">
+                        {project.title}
+                      </h2>
+                      <div
+                        className="text-xs font-mono text-[#444] hover:text-[#DC143C] transition-colors flex items-center gap-1 mt-0.5"
+                      >
+                        {project.url}
+                        <ExternalLink size={10} />
+                      </div>
+                    </div>
+                    {project.label && (
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-[#555] bg-[#111] border border-[#1e1e1e] px-2 py-1 rounded-sm whitespace-nowrap shrink-0">
+                        {project.label}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm text-[#666] leading-relaxed mb-4 group-hover:text-[#888] transition-colors">
+                    {project.tagline}
+                  </p>
+
+                  {/* Features */}
+                  <ul className="space-y-1.5 mb-5">
+                    {project.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-xs text-[#888]">
+                        <span
+                          className="w-1 h-1 rounded-full shrink-0"
+                          style={{ background: project.accent }}
+                        />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Stack tags */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-[#111]">
+                    {project.stack.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] font-semibold uppercase tracking-widest text-[#444] bg-[#111] border border-[#1e1e1e] px-2 py-1 rounded-sm group-hover:border-[#2a2a2a] transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            </FadeIn>
+          ))}
+        </div>
       </section>
 
       <CTABanner
         eyebrow="Work with us"
         heading="Your project could be next."
-        subtext="Bring a clear problem or a rough idea. We'll figure out the right scope and approach together."
+        subtext="Bring us a clear problem or a rough idea. We'll figure out the scope and approach together."
         primaryCta={{ label: "Start a Project", href: "/contact" }}
         secondaryCta={{ label: "Our Services", href: "/services" }}
       />

@@ -50,7 +50,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-[#888888] text-sm leading-relaxed max-w-xs">
-              Engineering, product thinking, and design discipline — built for founders who care about craft.
+              Engineering, product thinking, and design discipline. Built for founders who care about craft.
             </p>
             <div className="flex flex-wrap items-center gap-6 mt-8">
               <a

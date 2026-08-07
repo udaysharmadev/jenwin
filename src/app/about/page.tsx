@@ -5,29 +5,29 @@ import CTABanner from "@/components/sections/CTABanner";
 export const metadata: Metadata = {
   title: "About — Jenwin",
   description:
-    "Jenwin is a development agency built on craft, clarity, and honest execution. Learn who we are, what we believe, and how we work.",
+    "Jenwin is a development agency built on craft, clarity, and honest execution. We care about what we build, and that's rarer than it should be.",
 };
 
 const values = [
   {
     title: "Craft over volume.",
     description:
-      "We take fewer projects so we can do them properly. A website built with care outperforms ten built carelessly — for everyone involved.",
+      "We take fewer projects so we can do them properly. A website built with care outperforms ten built carelessly, for everyone involved.",
   },
   {
     title: "Clarity before delivery.",
     description:
-      "Ambiguity is the enemy of good work. We invest in understanding before we execute, and we communicate clearly throughout.",
+      "Ambiguity is the enemy of good work. We spend time understanding what you actually need before we start building anything.",
   },
   {
     title: "Taste as a discipline.",
     description:
-      "Good design isn't decoration. It's a function of judgment, restraint, and understanding what the work is actually trying to do.",
+      "Good design isn't decoration. It's a function of judgment, restraint, and knowing what the work is actually trying to do.",
   },
   {
     title: "Accountability without noise.",
     description:
-      "We deliver what we say we will, when we say we will. If something changes, we say so early and offer a path forward.",
+      "We deliver what we say we will, when we say we will. If something changes, we say so early and come with a plan.",
   },
 ];
 
@@ -70,12 +70,12 @@ export default function AboutPage() {
           </FadeIn>
           <FadeIn delay={0.05}>
             <h1 className="text-headline text-white max-w-3xl mb-6">
-              We care about what we build. That's not as common as it should be.
+              We care about what we build. That&apos;s not as common as it should be.
             </h1>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <p className="text-base text-[#666666] max-w-xl leading-relaxed">
-              Jenwin exists because too many digital products are built quickly, forgotten quickly, and replaced quickly. We're here to change that ratio — for the clients who care enough to do it right.
+            <p className="text-base text-[#666] max-w-xl leading-relaxed">
+              Jenwin exists because too many digital products are built quickly, forgotten quickly, and replaced quickly. We&apos;re here to change that, for the clients who care enough to do it right.
             </p>
           </FadeIn>
         </div>
@@ -92,15 +92,15 @@ export default function AboutPage() {
               <h2 className="text-title text-white mb-6">
                 Built by people who got tired of seeing good ideas shipped badly.
               </h2>
-              <div className="space-y-4 text-sm text-[#666666] leading-relaxed">
+              <div className="space-y-4 text-sm text-[#666] leading-relaxed">
                 <p>
-                  Jenwin was founded in India with a specific frustration in mind: founders with real ideas, real budgets, and real urgency — consistently receiving work that looked generic, shipped late, or broke under pressure.
+                  Jenwin was started in India with one frustration in mind: founders with real ideas, real budgets, and real urgency, consistently receiving work that looked generic, shipped late, or broke under pressure.
                 </p>
                 <p>
-                  We built an agency that solves for that. Not by being the cheapest, or the biggest, or the fastest. By being the most deliberate. By treating every project as if it&apos;s a product we&apos;re proud to put our name on.
+                  We built an agency that solves for that. Not by being the cheapest, or the biggest, or the fastest. By being the most deliberate. By treating every project like it&apos;s something we&apos;re proud to put our name on.
                 </p>
                 <p>
-                  Today, Jenwin works with Indian startups, D2C founders, SaaS builders, and growth-stage businesses who want a development partner that thinks before it builds, communicates clearly, and ships work that holds up.
+                  Today, Jenwin works with Indian startups, D2C founders, SaaS builders, and growth-stage businesses who want a development partner that thinks before it builds, talks straight, and ships work that holds up.
                 </p>
               </div>
             </div>
@@ -108,14 +108,14 @@ export default function AboutPage() {
 
           <FadeIn delay={0.1}>
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#444444] mb-5">What we stand for</p>
-              {values.map((v, i) => (
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#444] mb-5">What we stand for</p>
+              {values.map((v) => (
                 <div
                   key={v.title}
                   className="border-l-2 border-[#1a1a1a] hover:border-[#D81B60] pl-5 py-1 transition-colors duration-300 group"
                 >
-                  <p className="text-sm font-semibold text-white mb-1 group-hover:text-white">{v.title}</p>
-                  <p className="text-sm text-[#555555] leading-relaxed">{v.description}</p>
+                  <p className="text-sm font-semibold text-white mb-1">{v.title}</p>
+                  <p className="text-sm text-[#555] leading-relaxed">{v.description}</p>
                 </div>
               ))}
             </div>
@@ -124,7 +124,7 @@ export default function AboutPage() {
       </section>
 
       {/* Philosophy */}
-      <section className="bg-[#060606] border-y border-[#111111] py-20 lg:py-24">
+      <section className="bg-[#060606] border-y border-[#111] py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <FadeIn>
             <p className="flex items-center gap-3 mb-4">
@@ -141,9 +141,11 @@ export default function AboutPage() {
               <FadeIn key={p.area} delay={i * 0.08}>
                 <div className="bg-[#0a0a0a] p-8 flex flex-col gap-4 h-full hover:bg-[#0d0d0d] transition-colors duration-200">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#D81B60]">{p.area}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#D81B60]">
+                      {p.area}
+                    </span>
                   </div>
-                  <p className="text-sm text-[#666666] leading-relaxed">{p.belief}</p>
+                  <p className="text-sm text-[#666] leading-relaxed">{p.belief}</p>
                 </div>
               </FadeIn>
             ))}
@@ -163,7 +165,7 @@ export default function AboutPage() {
             <FadeIn key={stat.label} delay={i * 0.06}>
               <div className="bg-[#0a0a0a] px-7 py-8 flex flex-col gap-1 hover:bg-[#0d0d0d] transition-colors duration-200">
                 <span className="text-3xl font-bold text-white">{stat.value}</span>
-                <span className="text-xs text-[#555555]">{stat.label}</span>
+                <span className="text-xs text-[#555]">{stat.label}</span>
               </div>
             </FadeIn>
           ))}
@@ -173,7 +175,7 @@ export default function AboutPage() {
       <CTABanner
         eyebrow="Work together"
         heading="We'd rather show you than tell you."
-        subtext="The easiest way to understand how we work is to start a conversation. No pitch deck, no retainer pressure."
+        subtext="The easiest way to understand how we work is to start a conversation. No pitch deck, no pressure."
         primaryCta={{ label: "Start a Project", href: "/contact" }}
         secondaryCta={{ label: "View Work", href: "/work" }}
       />

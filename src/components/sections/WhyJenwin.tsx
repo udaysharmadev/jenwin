@@ -14,7 +14,7 @@ const differentiators = [
     number: "02",
     title: "Design With Restraint",
     description:
-      "Good design is invisible. We apply visual discipline that serves clarity — not decoration. Every element earns its place.",
+      "Good design is invisible. We apply visual discipline that serves clarity, not decoration. Every element earns its place.",
   },
   {
     number: "03",

@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
 const testimonials = [
   {
     quote:
-      "They don't just build — they think. Jenwin challenged our assumptions early, and the product shipped better because of it.",
+      "They don't just build, they think. Jenwin challenged our assumptions early, and the product shipped better because of it.",
     author: "Kiran M.",
     role: "Founder, FinTrack",
     initials: "KM",
@@ -21,7 +21,7 @@ const testimonials = [
   },
   {
     quote:
-      "The website looked expensive in the best way — and our inquiry rate doubled in the first quarter after launch.",
+      "The website looked expensive in the best way. Our inquiry rate doubled in the first quarter after launch.",
     author: "Aditya S.",
     role: "Brand Director, Atlas",
     initials: "AS",

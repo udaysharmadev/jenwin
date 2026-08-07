@@ -19,7 +19,7 @@ interface CTABannerProps {
 export default function CTABanner({
   eyebrow = "Ready to build?",
   heading = "Let's build something that feels as good as it performs.",
-  subtext = "Most projects start with one conversation. Bring your idea — we'll bring the execution.",
+  subtext = "Most projects start with one conversation. Bring your idea and we'll bring the execution.",
   primaryCta = { label: "Start a Project", href: "/contact" },
   secondaryCta = { label: "View Work", href: "/work" },
 }: CTABannerProps) {

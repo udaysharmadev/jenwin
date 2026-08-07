@@ -23,7 +23,7 @@ const trustItems = [
   {
     icon: Mail,
     title: "Direct access.",
-    description: "You'll communicate with the people actually doing the work — not an account manager.",
+    description: "You&apos;ll communicate with the people actually doing the work. No account managers in between.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function ContactPage() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <p className="text-base text-[#666666] max-w-lg leading-relaxed">
-              We review every message and respond within one business day (IST). The brief doesn&apos;t have to be perfect — just honest.
+              We review every message and respond within one business day (IST). The brief doesn&apos;t have to be perfect, just honest.
             </p>
           </FadeIn>
         </div>

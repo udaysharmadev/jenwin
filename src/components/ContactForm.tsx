@@ -7,23 +7,26 @@ import { Send, CheckCircle2 } from "lucide-react";
 
 const projectTypes = [
   "Website Development",
-  "Web App / SaaS Product",
-  "MVP Build",
-  "UI Engineering",
-  "AI-Enabled Features",
+  "App Development",
+  "Social Media Marketing",
+  "Graphic Designing",
+  "SaaS Application",
+  "UI/UX Design",
+  "CRM Tools",
+  "Custom Software",
   "Consultation",
   "Other",
 ];
 
 const projectScales = [
-  "Small — focused, single-purpose build",
-  "Medium — multi-feature product",
-  "Large — full platform or ecosystem",
-  "Not sure yet — let's discuss",
+  "Small: focused, single-purpose build",
+  "Medium: multi-feature product",
+  "Large: full platform or ecosystem",
+  "Not sure yet, let's discuss",
 ];
 
 const timelines = [
-  "Urgent — need to move fast",
+  "Urgent, need to move fast",
   "Within 4 weeks",
   "1–3 months",
   "3+ months",
@@ -102,7 +105,7 @@ export default function ContactForm() {
         </div>
         <h3 className="text-xl font-bold text-white">Message received.</h3>
         <p className="text-sm text-[#666666] max-w-xs">
-          We review every inquiry and typically respond within one business day — usually sooner.
+          We review every inquiry and typically respond within one business day, usually sooner.
         </p>
         <p className="text-xs text-[#444444]">IST timezone · Mon–Sat</p>
       </motion.div>

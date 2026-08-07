@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { X, ArrowRight, ArrowLeft, Check, Globe, Zap, Rocket, Cpu, Clock, Calendar, Coffee, Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
-import { createClient } from "@/utils/supabase/client";
 
 // Lazy-load Calendly — only loaded when user reaches the meeting step
 const InlineWidget = dynamic(
@@ -29,7 +28,7 @@ const STEPS = [
   {
     id: "timeline",
     question: "When do you need it live?",
-    hint: "Be honest — we'll make it work",
+    hint: "Be honest, we'll make it work",
     type: "choice" as const,
     options: [
       { id: "asap", label: "ASAP", desc: "< 4 weeks, let's sprint", icon: Rocket },
@@ -41,7 +40,7 @@ const STEPS = [
   {
     id: "budget",
     question: "What's your budget range?",
-    hint: "No wrong answers — helps us scope correctly",
+    hint: "No wrong answers, it just helps us scope correctly",
     type: "choice" as const,
     options: [
       { id: "small", label: "Under ₹1 Lakh", desc: "~$1,200 USD", icon: null },
@@ -116,7 +115,6 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
 
   async function handleSubmit() {
     setIsSubmitting(true);
-    const supabase = createClient();
     
     // Map answer IDs to actual labels
     const projectType = STEPS[0].options?.find(o => o.id === answers.type)?.label || 'N/A';
@@ -124,15 +122,25 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
     const budget = STEPS[2].options?.find(o => o.id === answers.budget)?.label || 'N/A';
     const challenge = STEPS[3].options?.find(o => o.id === answers.challenge)?.label || 'N/A';
 
-    await supabase.from("leads").insert({
-      name: contact.name,
-      email: contact.email,
-      project_name: contact.project,
-      project_type: projectType,
-      timeline: timeline,
-      budget: budget,
-      challenge: challenge,
-    });
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_WEB3FORMS_KEY",
+          subject: `New Lead: ${contact.name} — ${projectType}`,
+          from_name: contact.name,
+          email: contact.email,
+          project: contact.project,
+          project_type: projectType,
+          timeline,
+          budget,
+          challenge,
+        }),
+      });
+    } catch {
+      // Silently continue even if submission fails
+    }
 
     setIsSubmitting(false);
     goNext();

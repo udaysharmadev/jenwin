@@ -29,7 +29,7 @@ const founders = [
     tagline: "Infrastructure that never sleeps.",
     focus: "Integrations & DevOps",
     description:
-      "Uday owns the technical infrastructure at Jenwin. From CI/CD pipelines to third-party integrations and cloud deployments — he makes sure everything runs fast, reliably, and scales when it needs to.",
+      "Uday owns the technical infrastructure at Jenwin. From CI/CD pipelines to third-party integrations and cloud deployments. He makes sure everything runs fast, reliably, and scales when it needs to.",
     skills: ["DevOps & CI/CD", "System Integrations", "Cloud Infra", "APIs"],
     initials: "US",
     icon: Server,
@@ -46,7 +46,7 @@ const founders = [
     tagline: "The engine that makes things ship.",
     focus: "Management & Marketing",
     description:
-      "Sameer runs the operational and marketing side of Jenwin. He manages client relationships, coordinates delivery, drives outreach strategy, and makes sure every project lands the way it should — on time and on brand.",
+      "Sameer runs the operational and marketing side of Jenwin. He manages client relationships, coordinates delivery, drives outreach strategy, and makes sure every project lands the way it should. On time and on brand.",
     skills: ["Project Management", "Marketing Strategy", "Client Success", "Growth"],
     initials: "SS",
     icon: BarChart3,
@@ -255,7 +255,7 @@ export default function Founders() {
       <FadeIn delay={0.35}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 mt-16 pt-10 border-t border-[#0f0f0f] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <p className="text-sm text-[#555] max-w-md leading-relaxed">
-            Based in India. Building for the world. Every line of code, every pixel, every decision — by people who care deeply about craft.
+            Based in India. Building for the world. Every line of code, every pixel, every decision. By people who care deeply about craft.
           </p>
           <div className="flex items-center gap-2.5 px-4 py-2 bg-[#0a0a0a] border border-[#111] rounded-full">
             <div className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse shadow-[0_0_8px_#22c55e]" />
